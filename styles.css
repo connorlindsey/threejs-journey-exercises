@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply max-w-2xl mx-auto px-6 py-8;
+  font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+a:not([class]) {
+  @apply text-primary-600 hover:text-primary-700;
+}

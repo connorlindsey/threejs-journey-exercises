@@ -1,0 +1,22 @@
+{
+  "name": "threejs-journey-exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "keywords": [],
+  "author": "Connor Lindsey",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.3.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4"
+  }
+}
