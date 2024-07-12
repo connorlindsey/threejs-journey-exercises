@@ -3,6 +3,18 @@ import { defineConfig } from "vite"
 const fs = require("fs")
 const path = require("path")
 
+function pathToTitle(path) {
+  const parts = path
+    .split("/")
+    .at(1)
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+
+  parts = parts.splice(1, 0, "—")
+
+  return parts.join(" ")
+}
+
 function generateIndex() {
   const basePath = "./exercises"
   const indexPath = "./index.html"
@@ -34,7 +46,7 @@ function generateIndex() {
     <h1 class="text-3xl">Three.js Journey Exercises</h1>
     <p class="mt-2">By <a href="https://x.com/connor_lindsey">Connor Lindsey</a></p>
     <ul class="list-disc list-inside mt-3">
-      ${htmlFiles.map((file) => `<li><a href="${file}">${file}</a></li>`).join("")}
+      ${htmlFiles.map((file) => `<li><a href="${file}">${pathToTitle(file)}</a></li>`).join("")}
     </ul>
   </body>
 </html>
