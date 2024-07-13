@@ -10,7 +10,8 @@ function pathToTitle(path) {
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 
-  parts = parts.splice(1, 0, "—")
+  // Add '-' at the first array index
+  parts.splice(1, 0, "—")
 
   return parts.join(" ")
 }
@@ -72,7 +73,6 @@ export default defineConfig({
     {
       name: "watch-exercises",
       configureServer(server) {
-        console.log("Link")
         server.watcher.add("./exercises/**")
         server.watcher.on("add", generateIndex)
         server.watcher.on("unlink", generateIndex)

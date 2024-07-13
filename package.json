@@ -12,6 +12,7 @@
   "author": "Connor Lindsey",
   "license": "ISC",
   "dependencies": {
+    "gsap": "^3.12.5",
     "three": "^0.166.1",
     "vite": "^5.3.3"
   },
