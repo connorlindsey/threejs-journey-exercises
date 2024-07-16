@@ -43,7 +43,7 @@ function generateIndex() {
     <title>Three.js Journey Exercises</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="max-w-2xl mx-auto px-6 py-8">
     <h1 class="text-3xl">Three.js Journey Exercises</h1>
     <p class="mt-2">By <a href="https://x.com/connor_lindsey">Connor Lindsey</a></p>
     <ul class="list-disc list-inside mt-3">
