@@ -1,7 +1,6 @@
 import { defineConfig } from "vite"
-
-const fs = require("fs")
-const path = require("path")
+import fs from "fs"
+import path from "path"
 
 function pathToTitle(path) {
   const parts = path
@@ -16,6 +15,7 @@ function pathToTitle(path) {
   return parts.join(" ")
 }
 
+// Build list of exercises on the home page
 function generateIndex() {
   const basePath = "./exercises"
   const indexPath = "./index.html"
@@ -62,7 +62,40 @@ function generateIndex() {
   fs.writeFileSync(indexPath, indexContent)
 }
 
+// Support multi-page setup with Vite by specifying HTML entry files
+function getHtmlEntryFiles(srcDir) {
+  const entry = { "index/": "index.html" }
+
+  function traverseDir(currentDir) {
+    const files = fs.readdirSync(currentDir)
+
+    files.forEach((file) => {
+      const filePath = path.join(currentDir, file)
+      const isDirectory = fs.statSync(filePath).isDirectory()
+
+      if (isDirectory) {
+        // If it's a directory, recursively traverse it
+        traverseDir(filePath)
+      } else if (path.extname(file) === ".html") {
+        // If it's an HTML file, add it to the entry object
+        const name = path.relative(srcDir, filePath).replace(/\..*$/, "")
+        entry[name] = filePath
+      }
+    })
+  }
+
+  traverseDir(srcDir)
+
+  return entry
+}
+
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: getHtmlEntryFiles("./exercises"),
+      emptyOutDir: true,
+    },
+  },
   server: {
     open: true,
     fs: {
@@ -85,5 +118,8 @@ export default defineConfig({
         generateIndex()
       },
     },
+    // viteStaticCopy({
+    //   targets: [{ src: "exercises/**/*", dest: "" }],
+    // }),
   ],
 })
