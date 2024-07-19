@@ -23,13 +23,13 @@ window.addEventListener("keydown", (event) => {
 // image.onload = () => {
 //   texture.needsUpdate = true // Update texture after loaded
 // }
-// image.src = "../../static/textures/door/color.jpg"
+// image.src = "/textures/door/color.jpg"
 
 // ! Texture loader
 const textureLoader = new THREE.TextureLoader()
 const texture = textureLoader.load(
-  // "../../static/textures/door/color.jpg",
-  "../../static/textures/water.jpg",
+  // "/textures/door/color.jpg",
+  "/textures/water.jpg",
   () => {
     console.log("Loading complete")
   },
@@ -44,7 +44,7 @@ texture.wrapS = THREE.MirroredRepeatWrapping
 texture.wrapT = THREE.MirroredRepeatWrapping
 texture.colorSpace = THREE.SRGBColorSpace
 
-const heightMap = textureLoader.load("../../static/textures/door/height.jpg")
+const heightMap = textureLoader.load("/textures/door/height.jpg")
 
 // ! Loading manager
 

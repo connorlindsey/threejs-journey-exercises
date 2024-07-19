@@ -94,6 +94,7 @@ function getHtmlEntryFiles(srcDir) {
 }
 
 export default defineConfig({
+  publicDir: "static",
   build: {
     rollupOptions: {
       input: getHtmlEntryFiles("./exercises"),
