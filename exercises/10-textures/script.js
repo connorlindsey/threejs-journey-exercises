@@ -1,7 +1,6 @@
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/Addons.js"
 import GUI from "lil-gui"
-import gsap from "gsap"
 
 // Debug
 const gui = new GUI({
@@ -29,7 +28,8 @@ window.addEventListener("keydown", (event) => {
 // ! Texture loader
 const textureLoader = new THREE.TextureLoader()
 const texture = textureLoader.load(
-  "../../static/textures/door/color.jpg",
+  // "../../static/textures/door/color.jpg",
+  "../../static/textures/water.jpg",
   () => {
     console.log("Loading complete")
   },
@@ -40,7 +40,11 @@ const texture = textureLoader.load(
     console.log("Error")
   },
 )
+texture.wrapS = THREE.MirroredRepeatWrapping
+texture.wrapT = THREE.MirroredRepeatWrapping
 texture.colorSpace = THREE.SRGBColorSpace
+
+const heightMap = textureLoader.load("../../static/textures/door/height.jpg")
 
 // ! Loading manager
 
@@ -52,15 +56,26 @@ const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xffffff)
 
 // Sphere
-const geometry = new THREE.BoxGeometry(3, 3, 3)
+const geometry = new THREE.CylinderGeometry(1, 1, 5, 20)
 
 console.log(geometry.attributes)
 
 // Material
-let material = new THREE.MeshBasicMaterial({ map: texture })
+let material = new THREE.MeshStandardMaterial({
+  map: texture,
+  displacementMap: heightMap,
+  displacementScale: 0.001,
+})
 const mesh = new THREE.Mesh(geometry, material)
 
 scene.add(mesh)
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.25)
+scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+directionalLight.position.set(5, 5, 5)
+scene.add(directionalLight)
 
 // Sizes
 let sizes = {
@@ -110,7 +125,7 @@ const aspectRatio = sizes.width / sizes.height
 const near = 0.1
 const far = 100
 const camera = new THREE.PerspectiveCamera(fov, aspectRatio, near, far)
-camera.position.z = 8
+camera.position.set(4, 4, 5)
 scene.add(camera)
 
 const controls = new OrbitControls(camera, canvas)
@@ -129,8 +144,12 @@ const clock = new THREE.Clock()
 const tick = () => {
   const delta = clock.getDelta()
 
-  mesh.rotation.x += 0.33 * delta
-  mesh.rotation.y += 0.33 * delta
+  // mesh.rotation.x += 0.33 * delta
+  // mesh.rotation.y += 0.33 * delta
+
+  texture.offset.y += 0.005
+  // texture.center = new THREE.Vector2(0.5, 0.5)
+  // texture.rotation += 0.01
 
   controls.update()
 
