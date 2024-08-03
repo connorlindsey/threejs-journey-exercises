@@ -12,6 +12,7 @@
   "author": "Connor Lindsey",
   "license": "ISC",
   "dependencies": {
+    "cannon": "^0.6.2",
     "gsap": "^3.12.5",
     "lil-gui": "^0.19.2",
     "stats.js": "^0.17.0",
