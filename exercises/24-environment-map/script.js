@@ -145,6 +145,7 @@ rgbeLoader.load("/textures/environmentMaps/blender-2k.hdr", (texture) => {
 
   // const skybox = new GroundedSkybox(environmentMap, 15, 70)
   // scene.add(skybox)
+  // skybox.position.y = 15
 })
 
 scene.environmentIntensity = 1
