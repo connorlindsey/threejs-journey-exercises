@@ -1,6 +1,7 @@
 import { defineConfig } from "vite"
 import fs from "fs"
 import path from "path"
+import glsl from "vite-plugin-glsl"
 
 function pathToTitle(path) {
   const parts = path
@@ -108,6 +109,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    glsl(),
     {
       name: "watch-exercises",
       configureServer(server) {
