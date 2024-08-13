@@ -14,7 +14,6 @@ void main() {
   // Set color based on uniform
   // gl_FragColor = vec4(uColor, 1.0);
 
-
   // Use texture
   vec4 textureColor = texture2D(uTexture, vUv);
   textureColor.rgb *= vElevation * 3.5 + .9;
