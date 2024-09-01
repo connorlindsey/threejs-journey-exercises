@@ -97,6 +97,7 @@ function getHtmlEntryFiles(srcDir) {
 export default defineConfig({
   publicDir: "static",
   build: {
+    target: "esnext",
     rollupOptions: {
       input: getHtmlEntryFiles("./exercises"),
       emptyOutDir: true,
