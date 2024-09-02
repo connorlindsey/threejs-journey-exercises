@@ -22,14 +22,16 @@ function generateIndex() {
   const indexPath = "./index.html"
 
   const generateIndex = (dir, filelist = []) => {
-    fs.readdirSync(dir).forEach((file) => {
-      const filePath = path.join(dir, file)
-      if (fs.statSync(filePath).isDirectory()) {
-        generateIndex(filePath, filelist)
-      } else if (file === "index.html") {
-        filelist.push(filePath.replace("./", ""))
-      }
-    })
+    fs.readdirSync(dir)
+      .reverse()
+      .forEach((file) => {
+        const filePath = path.join(dir, file)
+        if (fs.statSync(filePath).isDirectory()) {
+          generateIndex(filePath, filelist)
+        } else if (file === "index.html") {
+          filelist.push(filePath.replace("./", ""))
+        }
+      })
     return filelist
   }
 
