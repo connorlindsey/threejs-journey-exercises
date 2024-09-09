@@ -5,6 +5,8 @@ import GUI from "lil-gui"
 import CustomShaderMaterial from "three-custom-shader-material/vanilla"
 import { SUBTRACTION, Evaluator, Brush } from "three-bvh-csg"
 
+import plainVertexShader from "./shaders/plain/vertex.glsl"
+import plainFragmentShader from "./shaders/plain/fragment.glsl"
 import terrainVertexShader from "./shaders/terrain/vertex.glsl"
 import terrainFragmentShader from "./shaders/terrain/fragment.glsl"
 
@@ -13,7 +15,9 @@ import terrainFragmentShader from "./shaders/terrain/fragment.glsl"
  */
 // Debug
 const gui = new GUI({ width: 325 })
-const debugObject = {}
+const debugObject = {
+  enabled: true,
+}
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl")
@@ -124,6 +128,20 @@ const material = new CustomShaderMaterial({
   color: "#85d534",
 })
 
+const plainMaterial = new CustomShaderMaterial({
+  // CSM
+  baseMaterial: THREE.MeshStandardMaterial,
+  silent: true,
+  vertexShader: plainVertexShader,
+  fragmentShader: plainFragmentShader,
+  uniforms,
+
+  // MeshStandardMaterial
+  metalness: 0,
+  roughness: 0.5,
+  color: "#85d534",
+})
+
 const depthMaterial = new CustomShaderMaterial({
   // CSM
   baseMaterial: THREE.MeshDepthMaterial,
@@ -141,6 +159,10 @@ terrain.customDepthMaterial = depthMaterial
 terrain.receiveShadow = true
 terrain.castShadow = true
 scene.add(terrain)
+
+gui.add(debugObject, "enabled").onChange((enabled) => {
+  terrain.material = enabled ? material : plainMaterial
+})
 
 /**
  * Water
